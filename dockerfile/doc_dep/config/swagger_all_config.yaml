@@ -1,0 +1,25 @@
+title: WATI AIGC OpenAPI
+version: "latest"
+description: config/intro.md
+contact:
+    name: WATI
+    url: http://localhost:8080
+basePath: "./swagger"
+modules:
+    userManagerService:
+        urlBase: "/wati-aigc/user-manager-service"
+        ref: "user-manager-service/api.swagger.json"
+    contentManagerService:
+        urlBase: "/wati-aigc/content-manager-service"
+        ref: "content-manager-service/api.swagger.json"
+    apiProxyProcesService:
+        urlBase: "/wati-aigc/api-proxy-service"
+        ref: "api-proxy-service/api.swagger.json"
+    metricsService:
+        urlBase: "/wati-aigc/metrics-service"
+        ref: "metrics-server/api.swagger.json"
+
+codegen:
+    pythonPackageName: "wati_aigc_openapi"
+    javaGroupId: "com.clare.ai.aigcopenapi"
+    javaArtifactId: "wati-aigc-openapi"

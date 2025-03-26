@@ -1,0 +1,1065 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Proxy Service",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "APIProxyService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/send/wati": {
+      "post": {
+        "operationId": "SendWATIMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceSendWATIMessageResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceSendWATIMessageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    },
+    "/v1/speakers": {
+      "get": {
+        "summary": "List all speakers.",
+        "operationId": "SpeakerList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceSpeakerListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "name.value",
+            "description": "Search value.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name.match_mode",
+            "description": "Search mode, default is fuzzy.\n\n - FUZZY: Fuzzy search.\n - EXACT: Exact search.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FUZZY",
+              "EXACT"
+            ],
+            "default": "FUZZY"
+          },
+          {
+            "name": "language",
+            "description": "[OPTIONAL] Language.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "LANGUAGE_UNKNOWN",
+              "EN_GB",
+              "EN_US",
+              "EN_IN"
+            ],
+            "default": "LANGUAGE_UNKNOWN"
+          },
+          {
+            "name": "favourite",
+            "description": "[OPTIONAL] User favourite or not.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FAVOURITE_UNKNOWN",
+              "UNFAVOURITE",
+              "FAVOURITE"
+            ],
+            "default": "FAVOURITE_UNKNOWN"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    },
+    "/v1/speakers/{id}": {
+      "get": {
+        "summary": "Get the specified speaker by ID.",
+        "operationId": "SpeakerGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceSpeakerGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Speaker id.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    },
+    "/v1/video/templates": {
+      "get": {
+        "summary": "List video templates.",
+        "operationId": "VideoTemplateList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoTemplateListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "category",
+            "description": "[OPTIONAL] specific category .",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ALL",
+              "COMMERCE",
+              "MARKETING",
+              "PERSONAL_MESSAGE"
+            ],
+            "default": "ALL"
+          },
+          {
+            "name": "name.value",
+            "description": "Search value.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name.match_mode",
+            "description": "Search mode, default is fuzzy.\n\n - FUZZY: Fuzzy search.\n - EXACT: Exact search.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FUZZY",
+              "EXACT"
+            ],
+            "default": "FUZZY"
+          },
+          {
+            "name": "favourite",
+            "description": "[OPTIONAL] User favourite or not.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FAVOURITE_UNKNOWN",
+              "UNFAVOURITE",
+              "FAVOURITE"
+            ],
+            "default": "FAVOURITE_UNKNOWN"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    },
+    "/v1/video/templates/{template_id}": {
+      "get": {
+        "summary": "Get the specified template by ID.",
+        "operationId": "VideoTemplateGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoTemplateGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "template_id",
+            "description": "UUID of template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    },
+    "/v1/videos": {
+      "get": {
+        "summary": "List all videos generated by the specified user.",
+        "operationId": "VideoList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "[OPTIONAL] task status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "TASK_UNKNOWN",
+              "PENDING",
+              "PROCESSING",
+              "SUCCESS",
+              "FAILURE"
+            ],
+            "default": "TASK_UNKNOWN"
+          },
+          {
+            "name": "is_ascending",
+            "description": "[OPTIONAL] is asc(查单词)",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "category",
+            "description": "[OPTIONAL] category.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ALL",
+              "COMMERCE",
+              "MARKETING",
+              "PERSONAL_MESSAGE"
+            ],
+            "default": "ALL"
+          },
+          {
+            "name": "name.value",
+            "description": "Search value.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name.match_mode",
+            "description": "Search mode, default is fuzzy.\n\n - FUZZY: Fuzzy search.\n - EXACT: Exact search.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FUZZY",
+              "EXACT"
+            ],
+            "default": "FUZZY"
+          },
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      },
+      "post": {
+        "summary": "Create a video generation task.",
+        "operationId": "VideoTaskNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoNewTaskResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoNewTaskRequest"
+            }
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    },
+    "/v1/videos/{video_id}": {
+      "get": {
+        "summary": "Get the specified video by video ID.",
+        "operationId": "VideoGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "video_id",
+            "description": "Video id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      },
+      "delete": {
+        "operationId": "VideoDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoDeleteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "video_id",
+            "description": "The video id needs to be deleted.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      },
+      "patch": {
+        "operationId": "VideoUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoUpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "video_id",
+            "description": "UUID of the video need to update.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/APIProxyServiceVideoUpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    },
+    "/v1/videos/{video_id}/status": {
+      "get": {
+        "summary": "Check a video generation task status by video ID.",
+        "operationId": "VideoTaskStatusGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_proxy_serviceVideoTaskStatusGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "video_id",
+            "description": "Video id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "APIProxyService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "APIProxyServiceVideoUpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "[OPTIONAL] New name. Unchanged if empty."
+        },
+        "description": {
+          "type": "string",
+          "description": "[OPTIONAL] New description. Unchanged if empty."
+        }
+      }
+    },
+    "NameQueryMATCHMODE": {
+      "type": "string",
+      "enum": [
+        "FUZZY",
+        "EXACT"
+      ],
+      "default": "FUZZY",
+      "description": " - FUZZY: Fuzzy search.\n - EXACT: Exact search."
+    },
+    "WatiReceiverCustomParam": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "variable name."
+        },
+        "value": {
+          "type": "string",
+          "description": "variable value."
+        }
+      }
+    },
+    "api_proxy_serviceScript": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "The content of script. The {{`key`}} means variables in the template."
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiTemplateScriptParameter"
+          },
+          "description": "Details of parameters defined in the script content."
+        }
+      }
+    },
+    "api_proxy_serviceSendWATIMessageRequest": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "title": "WATI API Endpoint"
+        },
+        "access_token": {
+          "type": "string",
+          "title": "WATI Access Token"
+        },
+        "broadcast_name": {
+          "type": "string",
+          "title": "WATI broadcast name"
+        },
+        "template_name": {
+          "type": "string",
+          "title": "WATI template name"
+        },
+        "variable_name": {
+          "type": "string",
+          "description": "The variable name defined in the WATI template for placing share video address."
+        },
+        "receivers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commonWatiReceiver"
+          },
+          "title": "receiver message"
+        }
+      }
+    },
+    "api_proxy_serviceSendWATIMessageResponse": {
+      "type": "object",
+      "properties": {
+        "rets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commonResult"
+          }
+        }
+      }
+    },
+    "api_proxy_serviceSpeakerGetResponse": {
+      "type": "object",
+      "properties": {
+        "speaker": {
+          "$ref": "#/definitions/protocolapi_proxy_serviceSpeaker",
+          "description": "Speaker object."
+        }
+      }
+    },
+    "api_proxy_serviceSpeakerListResponse": {
+      "type": "object",
+      "properties": {
+        "speakers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolapi_proxy_serviceSpeaker"
+          },
+          "description": "Speaker objects."
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging",
+          "description": "Paging."
+        }
+      }
+    },
+    "api_proxy_serviceVideoDeleteResponse": {
+      "type": "object"
+    },
+    "api_proxy_serviceVideoGetResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/protocolapi_proxy_serviceVideo",
+          "description": "Video object."
+        }
+      }
+    },
+    "api_proxy_serviceVideoListResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolapi_proxy_serviceVideo"
+          },
+          "description": "Videos."
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging",
+          "description": "Paging."
+        }
+      }
+    },
+    "api_proxy_serviceVideoNewTaskRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "[OPTIONAL] Video name.\n[OPTIONAL] If not specified, it will be generated based on the template name + current timestamp."
+        },
+        "description": {
+          "type": "string",
+          "description": "[OPTIONAL] The description of commi."
+        },
+        "template_id": {
+          "type": "string",
+          "description": "The template id to use when generating the commi."
+        },
+        "script_parameter": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "The key-value pairs of the using script template. Keep null if the script template has no variables."
+        },
+        "speaker_id": {
+          "type": "string",
+          "description": "Additional speaker id.\nUse template's default speaker id if null."
+        },
+        "tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "[OPTIONAL] Additional tone.\n[OPTIONAL] Use speaker's default tone if null."
+        },
+        "result_callback_url": {
+          "type": "string",
+          "description": "[OPTIONAL] The callback URL for the video generation result.\n[OPTIONAL] Can also use the VideoGet API to get the generated commi."
+        }
+      }
+    },
+    "api_proxy_serviceVideoNewTaskResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "UUID"
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "title": "Status"
+        }
+      }
+    },
+    "api_proxy_serviceVideoTaskStatusGetResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "description": "Task status."
+        },
+        "message": {
+          "type": "string",
+          "description": "Task status message."
+        },
+        "estimated_time": {
+          "type": "string",
+          "format": "int64",
+          "description": "estimated time of video generation end."
+        }
+      }
+    },
+    "api_proxy_serviceVideoTemplateGetResponse": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/definitions/protocolapi_proxy_serviceTemplate",
+          "description": "Template object."
+        }
+      }
+    },
+    "api_proxy_serviceVideoTemplateListResponse": {
+      "type": "object",
+      "properties": {
+        "templates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolapi_proxy_serviceTemplate"
+          },
+          "description": "Template objects."
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging",
+          "description": "Paging."
+        }
+      }
+    },
+    "api_proxy_serviceVideoUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/protocolapi_proxy_serviceVideo",
+          "description": "Video object."
+        }
+      }
+    },
+    "commiCATEGORY": {
+      "type": "string",
+      "enum": [
+        "ALL",
+        "COMMERCE",
+        "MARKETING",
+        "PERSONAL_MESSAGE"
+      ],
+      "default": "ALL"
+    },
+    "commiLANGUAGE": {
+      "type": "string",
+      "enum": [
+        "LANGUAGE_UNKNOWN",
+        "EN_GB",
+        "EN_US",
+        "EN_IN"
+      ],
+      "default": "LANGUAGE_UNKNOWN"
+    },
+    "commiTemplateScriptParameter": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The unique key/name of the variable within the template."
+        },
+        "default_value": {
+          "type": "string",
+          "description": "Default value for the variable if no value is provided."
+        },
+        "is_required": {
+          "type": "boolean",
+          "description": "Indicates whether this parameter is mandatory. If true, the default value is used if no value is provided. If false, the sentence containing the parameter will be omitted if no value is provided."
+        }
+      }
+    },
+    "commonGENDER": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "MALE",
+        "FEMALE"
+      ],
+      "default": "UNKNOWN"
+    },
+    "commonNameQuery": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Search value."
+        },
+        "match_mode": {
+          "$ref": "#/definitions/NameQueryMATCHMODE",
+          "description": "Search mode, default is fuzzy."
+        }
+      }
+    },
+    "commonRequestPaging": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "string",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "commonResponsePaging": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "string",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "commonResult": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Generic service and system error codes, see the system standard error table for HTTP errors and semantics.\nIf the error is business-specific, the code should return 0, see status and error for details."
+        },
+        "error": {
+          "type": "string",
+          "description": "Detailed description of the error."
+        },
+        "status": {
+          "$ref": "#/definitions/commonSTATUSCODE",
+          "description": "Business error code.."
+        }
+      },
+      "description": "Generic result return. Typically returns the error status of each subrequest in a Batch class request."
+    },
+    "commonSTATUSCODE": {
+      "type": "string",
+      "enum": [
+        "SC_OK",
+        "SC_CANCELLED",
+        "SC_UNKNOWN",
+        "SC_INVALID_ARGUMENT",
+        "SC_DEADLINE_EXCEEDED",
+        "SC_NOT_FOUND",
+        "SC_ALREADY_EXISTS",
+        "SC_PERMISSION_DENIED",
+        "SC_UNAUTHENTICATED",
+        "SC_RESOURCE_EXHAUSTED",
+        "SC_FAILED_PRECONDITION",
+        "SC_ABORTED",
+        "SC_OUT_OF_RANGE",
+        "SC_UNIMPLEMENTED",
+        "SC_INTERNAL",
+        "SC_UNAVAILABLE",
+        "SC_DATA_LOSS"
+      ],
+      "default": "SC_OK"
+    },
+    "commonTASKSTATUS": {
+      "type": "string",
+      "enum": [
+        "TASK_UNKNOWN",
+        "PENDING",
+        "PROCESSING",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "TASK_UNKNOWN"
+    },
+    "commonTONE": {
+      "type": "string",
+      "enum": [
+        "ALL_TONE",
+        "CONFIDENT",
+        "FRIENDLY"
+      ],
+      "default": "ALL_TONE"
+    },
+    "commonUSERFAVOURITE": {
+      "type": "string",
+      "enum": [
+        "FAVOURITE_UNKNOWN",
+        "UNFAVOURITE",
+        "FAVOURITE"
+      ],
+      "default": "FAVOURITE_UNKNOWN"
+    },
+    "commonWatiReceiver": {
+      "type": "object",
+      "properties": {
+        "whatsapp_number": {
+          "type": "string",
+          "description": "whatsapp number."
+        },
+        "shared_item_id": {
+          "type": "string",
+          "description": "video id for sharing. valid for 1 month."
+        },
+        "other_custom_params": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/WatiReceiverCustomParam"
+          },
+          "description": "other WATI custom param. Will pass through to the WATI server."
+        }
+      }
+    },
+    "protocolapi_proxy_serviceSpeaker": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the speaker."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the speaker."
+        },
+        "language": {
+          "$ref": "#/definitions/commiLANGUAGE",
+          "description": "Language spoken by the speaker."
+        },
+        "gender": {
+          "$ref": "#/definitions/commonGENDER",
+          "description": "Gender of the speaker."
+        },
+        "audio_sample_name": {
+          "type": "string",
+          "description": "Name of an audio sample file for the speaker."
+        },
+        "tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "Default tone used by the speaker."
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE",
+          "description": "Indicates whether the speaker is marked as a favourite by the user."
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the speaker profile was created."
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the speaker profile was last updated."
+        }
+      },
+      "description": "Speaker represents a speaker's profile used in video templates."
+    },
+    "protocolapi_proxy_serviceTemplate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "UUID of template."
+        },
+        "name": {
+          "type": "string",
+          "description": "Template name."
+        },
+        "description": {
+          "type": "string",
+          "description": "Template description."
+        },
+        "category": {
+          "$ref": "#/definitions/commiCATEGORY",
+          "description": "Template category."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Template tags."
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE",
+          "description": "User favourite or not."
+        },
+        "script": {
+          "$ref": "#/definitions/api_proxy_serviceScript",
+          "title": "script of this template"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Create time."
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Update time."
+        }
+      }
+    },
+    "protocolapi_proxy_serviceVideo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "UUID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description."
+        },
+        "video_url": {
+          "type": "string",
+          "description": "Video address. This address is valid for 30 days."
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Video duration. Unit: Seconds."
+        },
+        "category": {
+          "$ref": "#/definitions/commiCATEGORY",
+          "description": "Video category. Same as template."
+        },
+        "template_id": {
+          "type": "string",
+          "description": "The template id that video use."
+        },
+        "speaker_id": {
+          "type": "string",
+          "description": "The speaker id that video use."
+        },
+        "script_parameter": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "The script template id that video use.\nstring script_id = 10;\nScript parameter key-value pairs. The key is the name of the parameter defined by the script template.\nThe value is the value of the parameter to be filled into the template."
+        },
+        "tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "Video speaker tone. Use same tone as speaker if not specified."
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "description": "task status."
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Create time."
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Update time."
+        }
+      }
+    }
+  }
+}

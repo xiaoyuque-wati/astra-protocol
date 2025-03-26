@@ -1,0 +1,613 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Metrics Service",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "MetricsServer"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "commonAPIKEYACTION": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "CREATE",
+        "DELETE",
+        "GET"
+      ],
+      "default": "UNDEFINED"
+    },
+    "commonMETRICTABLE": {
+      "type": "string",
+      "enum": [
+        "METRIC_UNDEFINED",
+        "COMMI_USER_NEW",
+        "COMMI_USER_ACTIVE",
+        "COMMI_VIDEO_GENERATION",
+        "COMMI_API_KEY_ACTION",
+        "COMMI_API_USAGE",
+        "COMMI_VIDEO_SHARE",
+        "COMMI_CREDIT_EVENT",
+        "MOVIDEO_USER_NEW",
+        "MOVIDEO_VIDEO_GENERATION",
+        "MOVIDEO_VIDEO_EXPORT",
+        "MOVIDEO_FEEDBACK",
+        "MOVIDEO_SUBSCRIPTION",
+        "MOVIDEO_CREDIT_EVENT",
+        "MOVIDEO_SUB_CANCELLATION"
+      ],
+      "default": "METRIC_UNDEFINED"
+    },
+    "commonQUALITY": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "PIXEL_480P",
+        "PIXEL_720P",
+        "PIXEL_1080P"
+      ],
+      "default": "UNSPECIFIED"
+    },
+    "commonTASKSOURCE": {
+      "type": "string",
+      "enum": [
+        "SOURCE_UNKNOWN",
+        "WEBUI",
+        "API"
+      ],
+      "default": "SOURCE_UNKNOWN"
+    },
+    "commonTASKSTATUS": {
+      "type": "string",
+      "enum": [
+        "TASK_UNKNOWN",
+        "PENDING",
+        "PROCESSING",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "TASK_UNKNOWN"
+    },
+    "commonUSERCREDITEVENT": {
+      "type": "string",
+      "enum": [
+        "NO_ACTION",
+        "ADD",
+        "MINUS"
+      ],
+      "default": "NO_ACTION"
+    },
+    "commonUSERFAVOURITE": {
+      "type": "string",
+      "enum": [
+        "FAVOURITE_UNKNOWN",
+        "UNFAVOURITE",
+        "FAVOURITE"
+      ],
+      "default": "FAVOURITE_UNKNOWN"
+    },
+    "commonUSERSOURCE": {
+      "type": "string",
+      "enum": [
+        "UNSUPPORT",
+        "REGISTER",
+        "WATI",
+        "GOOGLE",
+        "APPLE"
+      ],
+      "default": "UNSUPPORT"
+    },
+    "commonUSERTYPE": {
+      "type": "string",
+      "enum": [
+        "NOTYPE",
+        "FREE",
+        "CREATOR",
+        "PRO"
+      ],
+      "default": "NOTYPE"
+    },
+    "metrics_serverACTION": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "ADD",
+        "UPLOAD"
+      ],
+      "default": "UNKNOWN"
+    },
+    "metrics_serverCommiAPIKeyActionInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "api_key_id": {
+          "type": "string"
+        },
+        "api_key_name": {
+          "type": "string"
+        },
+        "action": {
+          "$ref": "#/definitions/commonAPIKEYACTION"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverCommiAPIUsageInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "api_key_id": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "status_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status_message": {
+          "type": "string"
+        },
+        "invocation_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverCommiCreditEventInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "action": {
+          "$ref": "#/definitions/commonUSERCREDITEVENT"
+        },
+        "item_type": {
+          "$ref": "#/definitions/taskITEMTYPE"
+        },
+        "item_id": {
+          "type": "string"
+        },
+        "change_amount": {
+          "type": "number",
+          "format": "float"
+        },
+        "remain": {
+          "type": "number",
+          "format": "float"
+        },
+        "event_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverCommiUserActiveInfo": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "information": {
+          "type": "string"
+        },
+        "initial_credit": {
+          "type": "number",
+          "format": "float"
+        },
+        "source": {
+          "$ref": "#/definitions/commonUSERSOURCE"
+        },
+        "first_login_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverCommiUserNewInfo": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "register_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverCommiVideoGenerationInfo": {
+      "type": "object",
+      "properties": {
+        "video_id": {
+          "type": "string"
+        },
+        "video_name": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "interval": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "result": {
+          "$ref": "#/definitions/commonTASKSTATUS"
+        },
+        "template_id": {
+          "type": "string"
+        },
+        "template_name": {
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/definitions/protocolcommiCATEGORY"
+        },
+        "speaker_id": {
+          "type": "string"
+        },
+        "speaker_name": {
+          "type": "string"
+        },
+        "language": {
+          "$ref": "#/definitions/protocolcommiLANGUAGE"
+        },
+        "script_word_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "template_script": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "script_variables": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "video_duration": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "source": {
+          "$ref": "#/definitions/commonTASKSOURCE"
+        },
+        "credit_cost": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "metrics_serverCommiVideoShareInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "video_id": {
+          "type": "string"
+        },
+        "video_url": {
+          "type": "string"
+        },
+        "wati_template_name": {
+          "type": "string"
+        },
+        "wati_broadcast_name": {
+          "type": "string"
+        },
+        "whatsapp_number": {
+          "type": "string"
+        },
+        "send_status_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "send_status_message": {
+          "type": "string"
+        },
+        "send_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverMovideoCreditUsage": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "video_id": {
+          "type": "string"
+        },
+        "subscription_id": {
+          "type": "string"
+        },
+        "credit_before": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cost": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cost_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverMovideoFeedbackInfo": {
+      "type": "object",
+      "properties": {
+        "user_email": {
+          "type": "string"
+        },
+        "video_id": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "feedback_type": {
+          "type": "string"
+        },
+        "is_favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE"
+        },
+        "feedback_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "passthrough feedback info from frontend to metrics server, only add feedback_time."
+    },
+    "metrics_serverMovideoSubscriptionCancel": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "plan": {
+          "$ref": "#/definitions/commonUSERTYPE"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "cancel_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverMovideoSubscriptionInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "subscription_id": {
+          "type": "string"
+        },
+        "plan": {
+          "$ref": "#/definitions/commonUSERTYPE"
+        },
+        "credit_before": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "credit_after": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "is_renew": {
+          "type": "boolean"
+        },
+        "start_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverMovideoUserNewInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "firebase_id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "register_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverMovideoVideoExportInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "video_id": {
+          "type": "string"
+        },
+        "quality": {
+          "$ref": "#/definitions/commonQUALITY"
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS"
+        },
+        "error_info": {
+          "type": "string"
+        },
+        "target_object": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverMovideoVideoGenerationInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "video_id": {
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/definitions/protocolmovideoCATEGORY"
+        },
+        "orientation": {
+          "$ref": "#/definitions/movideoORIENTATION"
+        },
+        "user_prompt": {
+          "type": "string"
+        },
+        "voice_name": {
+          "type": "string"
+        },
+        "has_subtitle": {
+          "type": "boolean"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS"
+        },
+        "error_info": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "metrics_serverPushMetricResponse": {
+      "type": "object"
+    },
+    "movideoORIENTATION": {
+      "type": "string",
+      "enum": [
+        "NOT_SET",
+        "PORTRAIT",
+        "LANDSCAPE"
+      ],
+      "default": "NOT_SET"
+    },
+    "protocolcommiCATEGORY": {
+      "type": "string",
+      "enum": [
+        "ALL",
+        "COMMERCE",
+        "MARKETING",
+        "PERSONAL_MESSAGE"
+      ],
+      "default": "ALL"
+    },
+    "protocolcommiLANGUAGE": {
+      "type": "string",
+      "enum": [
+        "LANGUAGE_UNKNOWN",
+        "EN_GB",
+        "EN_US",
+        "EN_IN"
+      ],
+      "default": "LANGUAGE_UNKNOWN"
+    },
+    "protocolmovideoCATEGORY": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "ADVERTISING",
+        "STORY_TELLING",
+        "INFORMATIVE",
+        "ENTERTAINING",
+        "PROFESSIONAL",
+        "INSPIRING"
+      ],
+      "default": "UNDEFINED"
+    },
+    "taskITEMTYPE": {
+      "type": "string",
+      "enum": [
+        "UNSUPPORT_ITEM",
+        "COMMI_VIDEO_GENERATE",
+        "MOVIDEO_VIDEO_GENERATE",
+        "MOVIDEO_VIDEO_EXPORT",
+        "IMAGE_GENERATOR"
+      ],
+      "default": "UNSUPPORT_ITEM"
+    }
+  }
+}

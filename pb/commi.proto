@@ -1,0 +1,229 @@
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+
+option  go_package = "github.com/ClareAI/ai-platform-protocol/api/commi";
+package wati.ai_platform.protocol.commi;
+
+enum CATEGORY {
+    ALL              = 0;
+    COMMERCE         = 1;
+    MARKETING        = 2;
+    PERSONAL_MESSAGE = 3;
+}
+
+enum LANGUAGE {
+    LANGUAGE_UNKNOWN = 0;
+    EN_GB            = 1;
+    EN_US            = 2;
+    EN_IN            = 3;
+}
+
+message Template {
+    // ID of the template.
+    string id = 1;
+    // Name of the template.
+    string name = 2;
+    // Detailed description of the template.
+    string description = 3;
+    // Category of the template.
+    CATEGORY category = 4;
+    // Tags associated with the template.
+    repeated string tags = 6;
+    // URL of the thumbnail image, valid for 24 hours.
+    string thumbnail_url = 7;
+    // Template default speaker. Use to get speaker sample video.
+    string default_speaker = 8;
+    // Indicates whether the template is marked as a favourite by the user.
+    common.USERFAVOURITE favourite = 9;
+    // Timestamp when the template was created.
+    google.protobuf.Timestamp create_at = 20;
+    // Timestamp when the template was last updated.
+    google.protobuf.Timestamp update_at = 21;
+}
+
+// Speaker represents a speaker's profile used in video templates.
+message Speaker {
+    // ID of the speaker.
+    string id = 1;
+    // Name of the speaker.
+    string name = 2;
+    // Language spoken by the speaker.
+    LANGUAGE language = 3;
+    // Gender of the speaker.
+    common.GENDER gender = 4;
+    // Name of an audio sample file for the speaker.
+    string audio_sample = 5;
+    // Name of an image file used as the speaker's avatar.
+    string avatar_image = 6;
+    // Default tone used by the speaker.
+    common.TONE tone = 7;
+    // Indicates whether the speaker is marked as a favourite by the user.
+    common.USERFAVOURITE favourite = 8;
+    reserved 9, 30;
+    // Timestamp when the speaker profile was created.
+    google.protobuf.Timestamp create_at = 31;
+    // Timestamp when the speaker profile was last updated.
+    google.protobuf.Timestamp update_at = 32;
+}
+
+// Video represents a generated video with associated metadata.
+message Video {
+    // ID of the video.
+    string id = 1;
+    // Name of the video.
+    string name = 2;
+    // Detailed description of the video.
+    string description = 3;
+    // URL of the generated video, valid for 24 hours.
+    string video_url = 4;
+    // URL of the video thumbnail, valid for 24 hours. Defaults to the
+    // template's thumbnail if not specified.
+    string thumbnail_url = 5;
+    // Duration of the video in seconds.
+    int32 duration = 6;
+    // Video category, matching the template used.
+    CATEGORY category = 7;
+    // ID of the template used for generating the video.
+    string template_id = 8;
+    // ID of the speaker used in the video.
+    string speaker_id = 9;
+    // ID of the script template used in the video.
+    string script_id = 10;
+    // Key-value pairs for script parameters, where the key is the parameter
+    // name and the value is the content filled into the template.
+    map<string, string> script_parameter = 11;
+    // Tone of the video, defaults to the speaker's tone if not specified.
+    common.TONE tone = 12;
+    // Current status of the video generation task.
+    common.TASKSTATUS status = 13;
+    reserved 14, 30;
+    // Timestamp when the video was created.
+    google.protobuf.Timestamp create_at = 31;
+    // Timestamp when the video was last updated.
+    google.protobuf.Timestamp update_at = 32;
+}
+
+message TemplateScriptParameter {
+    // The unique key/name of the variable within the template.
+    string key = 1;
+    // Default value for the variable if no value is provided.
+    string default_value = 2;
+    // Indicates whether this parameter is mandatory. If true, the default value
+    // is used if no value is provided. If false, the sentence containing the
+    // parameter will be omitted if no value is provided.
+    bool is_required = 3;
+}
+
+// TemplateScript represents a script template that contains text with
+// placeholders for variable content.
+message TemplateScript {
+    // ID of the script template.
+    string id = 1;
+    // Name of the script template.
+    string name = 2;
+    // Content of the script template, which includes placeholders for
+    // parameters denoted by `{{key}}`.
+    string content = 3;
+    // Detailed definitions of parameters used within the script template
+    // content.
+    repeated TemplateScriptParameter parameters = 4;
+    reserved 5, 20;
+    // Timestamp when the script template was created.
+    google.protobuf.Timestamp create_at = 21;
+    // Timestamp when the script template was last updated.
+    google.protobuf.Timestamp update_at = 22;
+}
+
+message VideoGenerateRequest {
+    string video_id = 1;
+    // Script template content.
+    string template = 2;
+    // Parameter Key-value of script template.
+    map<string, string> values = 3;
+    // Speaker uuid
+    string speaker_id = 4;
+    // Speaker using language. same string with LANGUAGE type.
+    LANGUAGE language = 5;
+    // Speaker tone. same string with tone type.
+    common.TONE tone = 6;
+}
+
+message VideoGenerateResult {
+    // Video ID.
+    string video_id = 1;
+    //
+    common.TASKSTATUS status = 2;
+    // error_info
+    string error_info = 3;
+
+    int32 eta = 4;
+    // video object name in oss. Valid only if the task is successful..
+    string object = 5;
+    // video duration. Valid only if the task is successful. Unit: seconds.
+    int32 duration = 6;
+    // video word count.
+    int32 word_count = 7;
+}
+
+message VideoGenerationUsage {
+    google.protobuf.Timestamp date   = 1;
+    int32                     total  = 2;
+    int32                     fail   = 3;
+    common.TASKSOURCE         source = 4;
+}
+
+message CreditInfo {
+    // 剩下的credit
+    float credit = 1;
+}
+
+message UserInfo {
+    string id = 1;
+    // 用户名称
+    string name = 2;
+    // 用户email
+    string email = 3;
+    // 用户电话
+    string phone = 4;
+    // 用户地址
+    string location = 6;
+    // 用户使用语言
+    string language = 7;
+    // 用户来源
+    common.USERSOURCE source = 8;
+    // 用户类型
+    common.USERTYPE type = 9;
+    // 用户基本信息。前端传入json(industry company, perfer content, etc).
+    // 后端不验证直接存。
+    string information = 10;
+    // 用户使用情况以及限制.
+    CreditInfo credits = 11;
+    // 创建时间
+    google.protobuf.Timestamp create_at = 20;
+    // 更新时间
+    google.protobuf.Timestamp update_at = 21;
+}
+
+message APIKeyInfo {
+    // key 唯一标识
+    string id = 1;
+    // create 完整
+    // list 模糊: sk-前5位********
+    string sensitive_id = 2;
+    // key名字
+    string name = 3;
+    // 创建时间
+    google.protobuf.Timestamp created_at = 4;
+    // 上一次使用时间
+    google.protobuf.Timestamp last_used_at = 5;
+}
+
+message CreditUsage {
+    google.protobuf.Timestamp date          = 1;
+    float                     total_credits = 2;
+    float                     fail_credits  = 3;
+    common.TASKSOURCE         source        = 4;
+}

@@ -1,0 +1,2744 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Content Manager Service",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "ContentManagerService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/commi/v1/users/{user_id}/send/wati": {
+      "post": {
+        "summary": "批量发送wati消息.\n[EN] Batch send wati message.",
+        "operationId": "CommiUserSendWATIMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiSendWATIMessageResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiUserSendWATIMessageBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/speakers": {
+      "get": {
+        "summary": "罗列所有的speaker.\n[EN] List all speakers.",
+        "operationId": "CommiSpeakerList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiSpeakerListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "name.value",
+            "description": "Search value.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name.match_mode",
+            "description": "Search mode, default is fuzzy.\n\n - FUZZY: Fuzzy search.\n - EXACT: Exact search.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FUZZY",
+              "EXACT"
+            ],
+            "default": "FUZZY"
+          },
+          {
+            "name": "language",
+            "description": "[OPTIONAL] 语言.\n[OPTIONAL] [EN] Language.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "LANGUAGE_UNKNOWN",
+              "EN_GB",
+              "EN_US",
+              "EN_IN"
+            ],
+            "default": "LANGUAGE_UNKNOWN"
+          },
+          {
+            "name": "favourite",
+            "description": "[OPTIONAL] 当前用户是否喜欢\n[OPTIONAL] [EN] User favourite or not.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FAVOURITE_UNKNOWN",
+              "UNFAVOURITE",
+              "FAVOURITE"
+            ],
+            "default": "FAVOURITE_UNKNOWN"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "post": {
+        "summary": "创建新的speaker.\n[INTERNAL] [EN] Create new speaker.",
+        "operationId": "CommiSpeakerNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiSpeakerNewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiSpeakerNewBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/speakers/{id}": {
+      "get": {
+        "summary": "获取指定speaker.\n[INTERNAL] [EN] Get the specified speaker by ID.",
+        "operationId": "CommiSpeakerGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiSpeakerGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "CommiSpeaker id.\n[EN] CommiSpeaker id.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "delete": {
+        "summary": "删除指定的speaker.\n[INTERNAL] [EN] Delete the specified speaker by ID.",
+        "operationId": "CommiSpeakerDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiSpeakerDeleteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "要删除的 CommiSpeaker id.\n[EN] The speaker id needs to be deleted.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "patch": {
+        "summary": "更新指定的speaker.\n[INTERNAL] [EN] Update the specified speaker by ID.",
+        "operationId": "CommiSpeakerUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiSpeakerUpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "需要更新的speaker id.\n[EN] UUID of the speaker need to update.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiSpeakerUpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/speakers/{id}/sample_video": {
+      "get": {
+        "summary": "获取示例视频\n[INTERNAL] [EN] Get sample video by template id and speaker id.",
+        "operationId": "CommiSpeakerSampleVideoGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiSpeakerSampleVideoGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "user_id.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "speaker_id.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "template_id",
+            "description": "template id.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/video/templates": {
+      "get": {
+        "summary": "罗列所有的视频模版.\n[EN] List all video templates.",
+        "operationId": "CommiTemplateList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "category",
+            "description": "[OPTIONAL] 指定模版类型.\n[OPTIONAL] [EN] specific category .",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ALL",
+              "COMMERCE",
+              "MARKETING",
+              "PERSONAL_MESSAGE"
+            ],
+            "default": "ALL"
+          },
+          {
+            "name": "name.value",
+            "description": "Search value.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name.match_mode",
+            "description": "Search mode, default is fuzzy.\n\n - FUZZY: Fuzzy search.\n - EXACT: Exact search.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FUZZY",
+              "EXACT"
+            ],
+            "default": "FUZZY"
+          },
+          {
+            "name": "favourite",
+            "description": "[OPTIONAL] 当前用户是否喜欢\n[OPTIONAL] [EN] User favourite or not.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FAVOURITE_UNKNOWN",
+              "UNFAVOURITE",
+              "FAVOURITE"
+            ],
+            "default": "FAVOURITE_UNKNOWN"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "post": {
+        "summary": "[INTERNAL] 创建新的视频模版.\n[INTERNAL] [EN] Create new template.",
+        "operationId": "CommiTemplateNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateNewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiTemplateNewBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/video/templates/{id}": {
+      "get": {
+        "summary": "获取指定视频模版.\n[EN] Get the specified template by template ID.",
+        "operationId": "CommiTemplateGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "模版的唯一id.\n[EN] UUID of template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "delete": {
+        "summary": "[INTERNAL] 删除指定模版.\n[INTERNAL] [EN] Delete the specified template by template ID.",
+        "operationId": "CommiTemplateDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateDeleteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "要删除的模版id.\n[EN] The template id needs to be deleted.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "patch": {
+        "summary": "[INTERNAL] 更新指定模版.\n[INTERNAL] [EN] Update the specified template by template ID.",
+        "operationId": "CommiTemplateUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateUpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "要更新的模版id.\n[EN] The template uuid to be updated.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiTemplateUpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/video/templates/{template_id}/scripts": {
+      "get": {
+        "summary": "[INTERNAL] 罗列所有的脚本模版.\n[INTERNAL] [EN] List all script templates.",
+        "operationId": "CommiTemplateScriptList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateScriptListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "template_id",
+            "description": "模版的唯一id.\n[EN] UUID of template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "post": {
+        "summary": "[INTERNAL] 创建新的脚本模版.\n[INTERNAL] [EN] Create a new script template.",
+        "operationId": "CommiTemplateScriptNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateScriptNewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "template_id",
+            "description": "模版的唯一id.\n[EN] UUID of template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiTemplateScriptNewBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/video/templates/{template_id}/scripts/{id}": {
+      "get": {
+        "summary": "[INTERNAL] 获取指定脚本模版.\n[INTERNAL] [EN] Get the specified script template by ID.",
+        "operationId": "CommiTemplateScriptGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateScriptGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "template_id",
+            "description": "模版的唯一id.\n[EN] UUID of template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "要获取的脚本模版id.\n[EN] UUID of script template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "delete": {
+        "summary": "[INTERNAL] 删除指定脚本模版.\n[INTERNAL] [EN] Delete the specified script template by ID.",
+        "operationId": "CommiTemplateScriptDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateScriptDeleteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "template_id",
+            "description": "模版的唯一id.\n[EN] UUID of template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "要删除的脚本模版id.\n[EN] The script template id needs to be deleted.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "put": {
+        "summary": "[INTERNAL] 更新指定脚本模版.\n[INTERNAL] [EN] Update the specified script template by ID.",
+        "operationId": "CommiTemplateScriptUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiTemplateScriptUpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "template_id",
+            "description": "模版的唯一id.\n[EN] UUID of template.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "要更新的脚本模版id.\n[EN] UUID of the script template need to update.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiTemplateScriptUpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/videos": {
+      "get": {
+        "summary": "罗列用户的全部生成视频.\n[EN] List all videos generated by the specified user.",
+        "operationId": "CommiUserVideoList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "[OPTIONAL] 任务状态.\n[OPTIONAL] [EN] task status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "TASK_UNKNOWN",
+              "PENDING",
+              "PROCESSING",
+              "SUCCESS",
+              "FAILURE"
+            ],
+            "default": "TASK_UNKNOWN"
+          },
+          {
+            "name": "is_ascending",
+            "description": "[OPTIONAL] 是否时间升序. 默认降序结果.\n[OPTIONAL] [EN] is asc(查单词)",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "category",
+            "description": "[OPTIONAL] 类型.\n[OPTIONAL] [EN] category.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ALL",
+              "COMMERCE",
+              "MARKETING",
+              "PERSONAL_MESSAGE"
+            ],
+            "default": "ALL"
+          },
+          {
+            "name": "name.value",
+            "description": "Search value.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name.match_mode",
+            "description": "Search mode, default is fuzzy.\n\n - FUZZY: Fuzzy search.\n - EXACT: Exact search.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FUZZY",
+              "EXACT"
+            ],
+            "default": "FUZZY"
+          },
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "post": {
+        "summary": "用户创建生成视频的任务\n[EN] Create a video generation task.",
+        "operationId": "CommiUserVideoTaskNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoNewTaskResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiUserVideoTaskNewBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/videos/usages": {
+      "get": {
+        "summary": "用户视频生成记录\n[EN] List user video generation usage.",
+        "operationId": "CommiUserVideoGenerationUsageList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoGenerationUsageListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SOURCE_UNKNOWN",
+              "WEBUI",
+              "API"
+            ],
+            "default": "SOURCE_UNKNOWN"
+          },
+          {
+            "name": "time_range.start",
+            "description": "start time.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "time_range.end",
+            "description": "end time. default is now.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/videos/{video_id}": {
+      "get": {
+        "summary": "获取用户的指定视频\n[EN] Get the specified video by video ID.",
+        "operationId": "CommiUserVideoGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "description": "视频的id.\n[EN] Video id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "delete": {
+        "summary": "用户删除指定视频\n[EN] Delete the specified video by ID.",
+        "operationId": "CommiUserVideoDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoDeleteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "description": "要删除的视频 id.\n[EN] The video id needs to be deleted.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "patch": {
+        "summary": "用户更新指定视频\n[EN] Update the specified video by ID.",
+        "operationId": "CommiUserVideoUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoUpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "description": "要更新的视频id.\n[EN] UUID of the video need to update.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceCommiUserVideoUpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/videos/{video_id}/share": {
+      "get": {
+        "summary": "用户视频生成记录\n[EN] List user video generation usage.",
+        "operationId": "CommiUserVideoGetShareUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoGetShareUrlResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/videos/{video_id}/status": {
+      "get": {
+        "summary": "用户查询指定视频的状态\n[EN] Check a video generation task status by video ID.",
+        "operationId": "CommiUserVideoTaskStatusGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceCommiUserVideoTaskStatusGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "description": "视频的id.\n[EN] Video id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/feedback": {
+      "post": {
+        "operationId": "MovideoSendFeedBack",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoSendFeedBackResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoSendFeedBackRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/videos": {
+      "get": {
+        "operationId": "MovideoUserListVideo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserListVideoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "post": {
+        "operationId": "MovideoUserNewVideoTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserNewVideoTaskResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceMovideoUserNewVideoTaskBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/videos/export": {
+      "post": {
+        "operationId": "MovideoUserVideoExportTaskNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserVideoExportTaskNewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceMovideoUserVideoExportTaskNewBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/videos/export/{task_id}": {
+      "get": {
+        "operationId": "MovideoUserVideoExportTaskGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserVideoExportTaskGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/videos/{video_id}": {
+      "get": {
+        "operationId": "MovideoUserGetVideo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserGetVideoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "delete": {
+        "operationId": "MovideoUserDeleteVideo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserDeleteVideoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      },
+      "patch": {
+        "operationId": "MovideoUserUpdateVideo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserUpdateVideoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContentManagerServiceMovideoUserUpdateVideoBody"
+            }
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/videos/{video_id}/status": {
+      "get": {
+        "operationId": "MovideoUserTaskStatusGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoUserTaskStatusGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id\n[EN] user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "video_id",
+            "description": "视频的id.\n[EN] Video id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/voices": {
+      "get": {
+        "operationId": "MovideoVoiceList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoVoiceListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "MALE",
+              "FEMALE"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "ENGLISH",
+              "PORTUGUESE"
+            ],
+            "default": "UNKNOWN"
+          },
+          {
+            "name": "paging.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "paging.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/voices/{name}": {
+      "get": {
+        "operationId": "MovideoVoiceGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/content_manager_serviceMovideoVoiceGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ContentManagerService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ContentManagerServiceCommiSpeakerNewBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "名字.\n[EN] Name."
+        },
+        "language": {
+          "$ref": "#/definitions/protocolcommiLANGUAGE",
+          "description": "语言.\n[EN] Spoken language."
+        },
+        "gender": {
+          "$ref": "#/definitions/commonGENDER",
+          "description": "性别.\n[EN] CommiSpeaker gender."
+        },
+        "sample_audio_name": {
+          "type": "string",
+          "description": "音频示例文件名称.\n[EN] audio sample address for generating AI speaker audio."
+        },
+        "default_avatar": {
+          "$ref": "#/definitions/content_manager_serviceAvatar",
+          "description": "默认头像信息.\n[EN] Default avatar infomation."
+        },
+        "default_tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "默认语气.\n[EN] Default tone."
+        }
+      }
+    },
+    "ContentManagerServiceCommiSpeakerUpdateBody": {
+      "type": "object",
+      "properties": {
+        "default_tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "[OPTIONAL] 要更新的默认语气\n[OPTIONAL] [EN] Default tone need to update."
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE",
+          "description": "[OPTIONAL] 当前用户是否喜欢\n[OPTIONAL] [EN] User favourite or not."
+        }
+      }
+    },
+    "ContentManagerServiceCommiTemplateNewBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "模版名称.\n[EN] CommiTemplate objects."
+        },
+        "description": {
+          "type": "string",
+          "description": "[可选] 模版描述.\n[EN] [Optional] CommiTemplate description."
+        },
+        "category": {
+          "$ref": "#/definitions/protocolcommiCATEGORY",
+          "description": "模版类别.\nThe Category of template."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "[可选] 标签\n[EN] [Optional] Tags of template."
+        },
+        "thumbnail": {
+          "type": "string",
+          "title": "模版预览图名字，需要预先上传.\n[EN] Thumbnail path. Supports web address and local path"
+        }
+      }
+    },
+    "ContentManagerServiceCommiTemplateScriptNewBody": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "title": "脚本模版的内容. 使用{{`key`}}来标识模版中的变量.\nkey的值需要和`CommiTemplateScriptParameter`中的key一致.\n[EN] The content of script template. Use {{`key`}} to mark variables in the template.\n[EN] The content of key needs to be the same as the key name in the `CommiTemplateScriptParameter,"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiTemplateScriptParameter"
+          },
+          "description": "脚本模版参数，需要与脚本模版内容中的变量标识的数量保持一致.\n如果脚本模版内容里面没有变量标识，可不写.\n[EN] The parameter of script template.\n[EN] The number of parameters should be the same as the number of variable marks in the script template content.\n[EN] Omit it if no marks in the script template content."
+        }
+      }
+    },
+    "ContentManagerServiceCommiTemplateScriptUpdateBody": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "[OPTIONAL] 脚本模版内容. 若为空则不变.\n[OPTIONAL] New content."
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiTemplateScriptParameter"
+          },
+          "description": "[OPTIONAL] 脚本模版参数, content为空时无效.\n[OPTIONAL] 需要与脚本模版内容中的变量标识的数量保持一致.\n[OPTIONAL] 如果脚本模版内容里面没有变量标识，可不写.\n[OPTIONAL] [EN] The parameter of new content. Invalid if content is empty.\n[OPTIONAL] [EN] The number of parameters should be the same as the number of variable marks in the script template content.\n[OPTIONAL] [EN] Omit it if no marks in the script template content."
+        }
+      }
+    },
+    "ContentManagerServiceCommiTemplateUpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "[Optional] 更新的名称. 若为空则不变.\n[Optional] [EN] New name. Unchanged if empty."
+        },
+        "description": {
+          "type": "string",
+          "description": "[Optional] 更新的描述. 若为空则不变.\n[Optional] [EN] New description. Unchanged if empty."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "[Optional] 更新的tags. 全量. 若为空则不变.\n[Optional] [EN] All new tags. Unchanged if empty."
+        },
+        "thumbnail": {
+          "type": "string",
+          "description": "[Optional] 更新的图片的地址. 若为空则不变.\n[Optional] [EN] New thumbnail. Supports web address and local path. Unchanged if empty."
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE",
+          "description": "[Optional] 设置是否喜欢. 为空不变. 1不喜欢, 2喜欢\n[Optional] [EN] Set user favourite optional."
+        }
+      }
+    },
+    "ContentManagerServiceCommiUserSendWATIMessageBody": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "title": "WATI API Endpoint"
+        },
+        "access_token": {
+          "type": "string",
+          "title": "WATI Access Token"
+        },
+        "broadcast_name": {
+          "type": "string",
+          "title": "WATI broadcast name"
+        },
+        "template_name": {
+          "type": "string",
+          "title": "WATI template name"
+        },
+        "variable_name": {
+          "type": "string",
+          "description": "在 WATI 模板中定义的用于放置视频地址的变量名称\nThe variable name defined in the WATI template for placing share video address."
+        },
+        "receivers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commonWatiReceiver"
+          },
+          "title": "receiver message"
+        }
+      }
+    },
+    "ContentManagerServiceCommiUserVideoTaskNewBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "[OPTIONAL] 视频名称，如果没写的话会根据template名称和时间戳自动生成.\n[OPTIONAL] [EN] Video name.\n[OPTIONAL] [EN] If not specified, it will be generated based on the template name + current timestamp."
+        },
+        "description": {
+          "type": "string",
+          "description": "[OPTIONAL] 视频描述.\n[OPTIONAL] [EN] The description of video."
+        },
+        "template_id": {
+          "type": "string",
+          "description": "生成视频使用的模版的id.\n[EN] The template id to use when generating the video."
+        },
+        "script_id": {
+          "type": "string",
+          "description": "脚本模版的id.\n[EN] script template id."
+        },
+        "script_parameter": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "使用的脚本模版的参数键值对，如果脚本模版没有变量则为空.\n[EN] The key-value pairs of the using script template. Keep null if the script template has no variables."
+        },
+        "speaker_id": {
+          "type": "string",
+          "description": "speaker的id.\n[EN] speaker id."
+        },
+        "tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "[OPTIONAL] 额外指定语气, 不写使用speaker的默认值.\n[OPTIONAL] [EN] Additional tone.\n[OPTIONAL] [EN] Use speaker's default tone if null."
+        },
+        "result_callback_url": {
+          "type": "string",
+          "description": "[OPTIONAL] 视频生成结果的回调地址, 如果为空可通过VideoGet接口获取生成后的视频.\n[OPTIONAL] [EN] The callback URL for the video generation result.\n[OPTIONAL] [EN] Can also use the VideoGet API to get the generated video."
+        },
+        "source": {
+          "$ref": "#/definitions/commonTASKSOURCE",
+          "description": "[INTERNAL] 视频调用方, 如果为空则是WEBUI.\n[INTERNAL] [EN] The caller of this api, defaut is WEBUI if null."
+        }
+      }
+    },
+    "ContentManagerServiceCommiUserVideoUpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "[OPTIONAL] 更新的视频名称. 若为空则不更新.\n[OPTIONAL] [EN] New name. Unchanged if empty."
+        },
+        "description": {
+          "type": "string",
+          "description": "[OPTIONAL] 更新的视频描述. 若为空则不更新.\n[OPTIONAL] [EN] New description. Unchanged if empty."
+        }
+      }
+    },
+    "ContentManagerServiceMovideoUserNewVideoTaskBody": {
+      "type": "object",
+      "properties": {
+        "orientation": {
+          "$ref": "#/definitions/movideoORIENTATION"
+        },
+        "category": {
+          "$ref": "#/definitions/protocolmovideoCATEGORY"
+        },
+        "outline": {
+          "type": "string"
+        },
+        "voice": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "title": "10~60"
+        },
+        "add_subtitle": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ContentManagerServiceMovideoUserUpdateVideoBody": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE"
+        }
+      }
+    },
+    "ContentManagerServiceMovideoUserVideoExportTaskNewBody": {
+      "type": "object",
+      "properties": {
+        "video_id": {
+          "type": "string"
+        },
+        "quality": {
+          "$ref": "#/definitions/commonQUALITY"
+        },
+        "watermark": {
+          "$ref": "#/definitions/commonWATERMARK"
+        }
+      }
+    },
+    "NameQueryMATCHMODE": {
+      "type": "string",
+      "enum": [
+        "FUZZY",
+        "EXACT"
+      ],
+      "default": "FUZZY",
+      "description": " - FUZZY: Fuzzy search.\n - EXACT: Exact search."
+    },
+    "WatiReceiverCustomParam": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "variable name."
+        },
+        "value": {
+          "type": "string",
+          "description": "variable value."
+        }
+      }
+    },
+    "commiSpeaker": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the speaker."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the speaker."
+        },
+        "language": {
+          "$ref": "#/definitions/protocolcommiLANGUAGE",
+          "description": "Language spoken by the speaker."
+        },
+        "gender": {
+          "$ref": "#/definitions/commonGENDER",
+          "description": "Gender of the speaker."
+        },
+        "audio_sample": {
+          "type": "string",
+          "description": "Name of an audio sample file for the speaker."
+        },
+        "avatar_image": {
+          "type": "string",
+          "description": "Name of an image file used as the speaker's avatar."
+        },
+        "tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "Default tone used by the speaker."
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE",
+          "description": "Indicates whether the speaker is marked as a favourite by the user."
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the speaker profile was created."
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the speaker profile was last updated."
+        }
+      },
+      "description": "Speaker represents a speaker's profile used in video templates."
+    },
+    "commiTemplate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the template."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the template."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the template."
+        },
+        "category": {
+          "$ref": "#/definitions/protocolcommiCATEGORY",
+          "description": "Category of the template."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags associated with the template."
+        },
+        "thumbnail_url": {
+          "type": "string",
+          "description": "URL of the thumbnail image, valid for 24 hours."
+        },
+        "default_speaker": {
+          "type": "string",
+          "description": "Template default speaker. Use to get speaker sample video."
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE",
+          "description": "Indicates whether the template is marked as a favourite by the user."
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the template was created."
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the template was last updated."
+        }
+      }
+    },
+    "commiTemplateScript": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the script template."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the script template."
+        },
+        "content": {
+          "type": "string",
+          "description": "Content of the script template, which includes placeholders for parameters denoted by `{{key}}`."
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiTemplateScriptParameter"
+          },
+          "description": "Detailed definitions of parameters used within the script template content."
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the script template was created."
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the script template was last updated."
+        }
+      },
+      "description": "TemplateScript represents a script template that contains text with placeholders for variable content."
+    },
+    "commiTemplateScriptParameter": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The unique key/name of the variable within the template."
+        },
+        "default_value": {
+          "type": "string",
+          "description": "Default value for the variable if no value is provided."
+        },
+        "is_required": {
+          "type": "boolean",
+          "description": "Indicates whether this parameter is mandatory. If true, the default value is used if no value is provided. If false, the sentence containing the parameter will be omitted if no value is provided."
+        }
+      }
+    },
+    "commiVideoGenerationUsage": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fail": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "source": {
+          "$ref": "#/definitions/commonTASKSOURCE"
+        }
+      }
+    },
+    "commonGENDER": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "MALE",
+        "FEMALE"
+      ],
+      "default": "UNKNOWN"
+    },
+    "commonNameQuery": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Search value."
+        },
+        "match_mode": {
+          "$ref": "#/definitions/NameQueryMATCHMODE",
+          "description": "Search mode, default is fuzzy."
+        }
+      }
+    },
+    "commonQUALITY": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "PIXEL_480P",
+        "PIXEL_720P",
+        "PIXEL_1080P"
+      ],
+      "default": "UNSPECIFIED"
+    },
+    "commonRequestPaging": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "string",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "commonResponsePaging": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "string",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "commonResult": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Generic service and system error codes, see the system standard error table for HTTP errors and semantics.\nIf the error is business-specific, the code should return 0, see status and error for details."
+        },
+        "error": {
+          "type": "string",
+          "description": "Detailed description of the error."
+        },
+        "status": {
+          "$ref": "#/definitions/commonSTATUSCODE",
+          "description": "Business error code.."
+        }
+      },
+      "description": "Generic result return. Typically returns the error status of each subrequest in a Batch class request."
+    },
+    "commonSTATUSCODE": {
+      "type": "string",
+      "enum": [
+        "SC_OK",
+        "SC_CANCELLED",
+        "SC_UNKNOWN",
+        "SC_INVALID_ARGUMENT",
+        "SC_DEADLINE_EXCEEDED",
+        "SC_NOT_FOUND",
+        "SC_ALREADY_EXISTS",
+        "SC_PERMISSION_DENIED",
+        "SC_UNAUTHENTICATED",
+        "SC_RESOURCE_EXHAUSTED",
+        "SC_FAILED_PRECONDITION",
+        "SC_ABORTED",
+        "SC_OUT_OF_RANGE",
+        "SC_UNIMPLEMENTED",
+        "SC_INTERNAL",
+        "SC_UNAVAILABLE",
+        "SC_DATA_LOSS"
+      ],
+      "default": "SC_OK"
+    },
+    "commonTASKSOURCE": {
+      "type": "string",
+      "enum": [
+        "SOURCE_UNKNOWN",
+        "WEBUI",
+        "API"
+      ],
+      "default": "SOURCE_UNKNOWN"
+    },
+    "commonTASKSTATUS": {
+      "type": "string",
+      "enum": [
+        "TASK_UNKNOWN",
+        "PENDING",
+        "PROCESSING",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "TASK_UNKNOWN"
+    },
+    "commonTONE": {
+      "type": "string",
+      "enum": [
+        "ALL_TONE",
+        "CONFIDENT",
+        "FRIENDLY"
+      ],
+      "default": "ALL_TONE"
+    },
+    "commonTimeRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "start time."
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "end time. default is now."
+        }
+      }
+    },
+    "commonUSERFAVOURITE": {
+      "type": "string",
+      "enum": [
+        "FAVOURITE_UNKNOWN",
+        "UNFAVOURITE",
+        "FAVOURITE"
+      ],
+      "default": "FAVOURITE_UNKNOWN"
+    },
+    "commonWATERMARK": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_WM",
+        "NO_WM",
+        "WM_CUSTOM",
+        "WM_MOVIDEO"
+      ],
+      "default": "UNKNOWN_WM"
+    },
+    "commonWatiReceiver": {
+      "type": "object",
+      "properties": {
+        "whatsapp_number": {
+          "type": "string",
+          "description": "whatsapp number."
+        },
+        "shared_item_id": {
+          "type": "string",
+          "description": "video id for sharing. valid for 1 month."
+        },
+        "other_custom_params": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/WatiReceiverCustomParam"
+          },
+          "description": "other WATI custom param. Will pass through to the WATI server."
+        }
+      }
+    },
+    "content_manager_serviceAvatar": {
+      "type": "object",
+      "properties": {
+        "thumbnail_name": {
+          "type": "string",
+          "description": "头像文件名字.\n[EN] Thumbnail name."
+        },
+        "sample_video_name": {
+          "type": "string",
+          "description": "用于生成AI speaker的名字.\n[OPTIONAL][EN] Sample video name for generating AI speaker."
+        }
+      }
+    },
+    "content_manager_serviceCommiSendWATIMessageResponse": {
+      "type": "object",
+      "properties": {
+        "rets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commonResult"
+          }
+        }
+      }
+    },
+    "content_manager_serviceCommiSpeakerDeleteResponse": {
+      "type": "object"
+    },
+    "content_manager_serviceCommiSpeakerGetResponse": {
+      "type": "object",
+      "properties": {
+        "speaker": {
+          "$ref": "#/definitions/commiSpeaker",
+          "description": "CommiSpeaker.\n[EN] CommiSpeaker object."
+        }
+      }
+    },
+    "content_manager_serviceCommiSpeakerListResponse": {
+      "type": "object",
+      "properties": {
+        "speakers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiSpeaker"
+          },
+          "description": "speakers.\n[EN] CommiSpeaker objects."
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging",
+          "description": "分页.\n[EN] Paging."
+        }
+      }
+    },
+    "content_manager_serviceCommiSpeakerNewResponse": {
+      "type": "object",
+      "properties": {
+        "speaker": {
+          "$ref": "#/definitions/commiSpeaker",
+          "description": "CommiSpeaker\n[EN] CommiSpeaker object."
+        }
+      }
+    },
+    "content_manager_serviceCommiSpeakerSampleVideoGetResponse": {
+      "type": "object",
+      "properties": {
+        "sample_video_address": {
+          "type": "string"
+        }
+      }
+    },
+    "content_manager_serviceCommiSpeakerUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "speaker": {
+          "$ref": "#/definitions/commiSpeaker",
+          "description": "CommiSpeaker.\n[EN] CommiSpeaker object."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateDeleteResponse": {
+      "type": "object"
+    },
+    "content_manager_serviceCommiTemplateGetResponse": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/definitions/commiTemplate",
+          "description": "模版对象.\n[EN] CommiTemplate object."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateListResponse": {
+      "type": "object",
+      "properties": {
+        "templates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiTemplate"
+          },
+          "description": "模版对象.\n[EN] CommiTemplate objects."
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging",
+          "description": "分页信息.\n[EN] Paging."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateNewResponse": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/definitions/commiTemplate",
+          "description": "模版.\n[EN] CommiTemplate object."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateScriptDeleteResponse": {
+      "type": "object"
+    },
+    "content_manager_serviceCommiTemplateScriptGetResponse": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "$ref": "#/definitions/commiTemplateScript",
+          "description": "脚本模版.\n[EN] Script template object."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateScriptListResponse": {
+      "type": "object",
+      "properties": {
+        "scripts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiTemplateScript"
+          },
+          "description": "脚本模版.\n[EN] Script template objects."
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging",
+          "description": "分页.\n[EN] Paging."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateScriptNewResponse": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "$ref": "#/definitions/commiTemplateScript",
+          "description": "脚本模版.\n[EN] Script template objects."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateScriptUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "$ref": "#/definitions/commiTemplateScript",
+          "description": "新的脚本模版.\n[EN] New script template."
+        }
+      }
+    },
+    "content_manager_serviceCommiTemplateUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/definitions/commiTemplate",
+          "description": "更新后的template\n[EN] New template object."
+        }
+      }
+    },
+    "content_manager_serviceCommiUserVideoDeleteResponse": {
+      "type": "object"
+    },
+    "content_manager_serviceCommiUserVideoGenerationUsageListResponse": {
+      "type": "object",
+      "properties": {
+        "usages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiVideoGenerationUsage"
+          }
+        }
+      }
+    },
+    "content_manager_serviceCommiUserVideoGetResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/protocolcommiVideo",
+          "description": "指定的视频\n[EN] Video object."
+        }
+      }
+    },
+    "content_manager_serviceCommiUserVideoGetShareUrlResponse": {
+      "type": "object",
+      "properties": {
+        "share_url": {
+          "type": "string"
+        }
+      }
+    },
+    "content_manager_serviceCommiUserVideoListResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolcommiVideo"
+          },
+          "description": "生成的视频.\n[EN] Videos."
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging",
+          "description": "分页信息.\n[EN] Paging."
+        }
+      }
+    },
+    "content_manager_serviceCommiUserVideoNewTaskResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "唯一id\n[EN] UUID"
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "title": "状态\n[EN] Status"
+        }
+      }
+    },
+    "content_manager_serviceCommiUserVideoTaskStatusGetResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "description": "视频生成任务的当前状态.\n[EN] Task status."
+        },
+        "message": {
+          "type": "string",
+          "description": "状态信息\n[EN] Task status message."
+        },
+        "estimated_time": {
+          "type": "string",
+          "format": "int64",
+          "description": "生成的剩余时间. 单位:分钟\n[EN] estimated time of video generation end."
+        }
+      }
+    },
+    "content_manager_serviceCommiUserVideoUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/protocolcommiVideo",
+          "description": "视频.\n[EN] Video object."
+        }
+      }
+    },
+    "content_manager_serviceMovideoSendFeedBackRequest": {
+      "type": "object",
+      "properties": {
+        "user_email": {
+          "type": "string"
+        },
+        "video_id": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "feedback_type": {
+          "type": "string"
+        },
+        "is_favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE"
+        }
+      }
+    },
+    "content_manager_serviceMovideoSendFeedBackResponse": {
+      "type": "object"
+    },
+    "content_manager_serviceMovideoUserDeleteVideoResponse": {
+      "type": "object"
+    },
+    "content_manager_serviceMovideoUserGetVideoResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/protocolmovideoVideo"
+        }
+      }
+    },
+    "content_manager_serviceMovideoUserListVideoResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolmovideoVideo"
+          }
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging"
+        }
+      }
+    },
+    "content_manager_serviceMovideoUserNewVideoTaskResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "唯一id\n[EN] UUID"
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "title": "状态\n[EN] Status"
+        }
+      }
+    },
+    "content_manager_serviceMovideoUserTaskStatusGetResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "description": "视频生成任务的当前状态.\n[EN] Task status."
+        },
+        "message": {
+          "type": "string",
+          "description": "状态信息\n[EN] Task status message."
+        },
+        "estimated_time": {
+          "type": "string",
+          "format": "int64",
+          "description": "生成的剩余时间. 单位:分钟\n[EN] estimated time of video generation end."
+        }
+      }
+    },
+    "content_manager_serviceMovideoUserUpdateVideoResponse": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/protocolmovideoVideo"
+        }
+      }
+    },
+    "content_manager_serviceMovideoUserVideoExportTaskGetResponse": {
+      "type": "object",
+      "properties": {
+        "ret": {
+          "$ref": "#/definitions/commonTASKSTATUS"
+        },
+        "message": {
+          "type": "string"
+        },
+        "video_address": {
+          "type": "string"
+        }
+      }
+    },
+    "content_manager_serviceMovideoUserVideoExportTaskNewResponse": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "string"
+        }
+      }
+    },
+    "content_manager_serviceMovideoVoiceGetResponse": {
+      "type": "object",
+      "properties": {
+        "voice": {
+          "$ref": "#/definitions/movideoVoice"
+        }
+      }
+    },
+    "content_manager_serviceMovideoVoiceListResponse": {
+      "type": "object",
+      "properties": {
+        "voices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/movideoVoice"
+          }
+        },
+        "paging": {
+          "$ref": "#/definitions/commonResponsePaging"
+        }
+      }
+    },
+    "movideoORIENTATION": {
+      "type": "string",
+      "enum": [
+        "NOT_SET",
+        "PORTRAIT",
+        "LANDSCAPE"
+      ],
+      "default": "NOT_SET"
+    },
+    "movideoVideoClip": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sentence": {
+          "type": "string"
+        },
+        "clip_url": {
+          "type": "string"
+        },
+        "audio_segment_url": {
+          "type": "string"
+        },
+        "video_description": {
+          "type": "string"
+        }
+      }
+    },
+    "movideoVoice": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "language": {
+          "$ref": "#/definitions/protocolmovideoLANGUAGE"
+        },
+        "gender": {
+          "$ref": "#/definitions/commonGENDER"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "audio_demo": {
+          "type": "string"
+        }
+      }
+    },
+    "protocolcommiCATEGORY": {
+      "type": "string",
+      "enum": [
+        "ALL",
+        "COMMERCE",
+        "MARKETING",
+        "PERSONAL_MESSAGE"
+      ],
+      "default": "ALL"
+    },
+    "protocolcommiLANGUAGE": {
+      "type": "string",
+      "enum": [
+        "LANGUAGE_UNKNOWN",
+        "EN_GB",
+        "EN_US",
+        "EN_IN"
+      ],
+      "default": "LANGUAGE_UNKNOWN"
+    },
+    "protocolcommiVideo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the video."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the video."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the video."
+        },
+        "video_url": {
+          "type": "string",
+          "description": "URL of the generated video, valid for 24 hours."
+        },
+        "thumbnail_url": {
+          "type": "string",
+          "description": "URL of the video thumbnail, valid for 24 hours. Defaults to the template's thumbnail if not specified."
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Duration of the video in seconds."
+        },
+        "category": {
+          "$ref": "#/definitions/protocolcommiCATEGORY",
+          "description": "Video category, matching the template used."
+        },
+        "template_id": {
+          "type": "string",
+          "description": "ID of the template used for generating the video."
+        },
+        "speaker_id": {
+          "type": "string",
+          "description": "ID of the speaker used in the video."
+        },
+        "script_id": {
+          "type": "string",
+          "description": "ID of the script template used in the video."
+        },
+        "script_parameter": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Key-value pairs for script parameters, where the key is the parameter name and the value is the content filled into the template."
+        },
+        "tone": {
+          "$ref": "#/definitions/commonTONE",
+          "description": "Tone of the video, defaults to the speaker's tone if not specified."
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS",
+          "description": "Current status of the video generation task."
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the video was created."
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the video was last updated."
+        }
+      },
+      "description": "Video represents a generated video with associated metadata."
+    },
+    "protocolmovideoCATEGORY": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "ADVERTISING",
+        "STORY_TELLING",
+        "INFORMATIVE",
+        "ENTERTAINING",
+        "PROFESSIONAL",
+        "INSPIRING"
+      ],
+      "default": "UNDEFINED"
+    },
+    "protocolmovideoLANGUAGE": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "ENGLISH",
+        "PORTUGUESE"
+      ],
+      "default": "UNKNOWN"
+    },
+    "protocolmovideoVideo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/commonTASKSTATUS"
+        },
+        "title": {
+          "type": "string",
+          "title": "generated by llm"
+        },
+        "category": {
+          "$ref": "#/definitions/protocolmovideoCATEGORY"
+        },
+        "source_content": {
+          "type": "string"
+        },
+        "voice_name": {
+          "type": "string"
+        },
+        "preview_video_url": {
+          "type": "string"
+        },
+        "thumbnail_url": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "description": "real video duration."
+        },
+        "voiceover_word_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "clips": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/movideoVideoClip"
+          }
+        },
+        "favourite": {
+          "$ref": "#/definitions/commonUSERFAVOURITE"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

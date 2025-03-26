@@ -1,0 +1,1203 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User Manager Service",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "UserManagerService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/commi/v1/active": {
+      "post": {
+        "operationId": "CommiUserActive",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiUserActiveResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiUserActiveRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/commi/v1/credits": {
+      "post": {
+        "operationId": "CommiBatchUsersAddCredits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiBatchUsersAddCreditsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiBatchUsersAddCreditsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/commi/v1/login": {
+      "post": {
+        "summary": "Login and register",
+        "operationId": "CommiLoginAndRegister",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiLoginAndRegisterResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiLoginAndRegisterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/commi/v1/reset_password": {
+      "post": {
+        "operationId": "CommiResetPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiResetPasswordResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiResetPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}": {
+      "get": {
+        "summary": "header的cookies里面带",
+        "operationId": "CommiUserGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiUserGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      },
+      "patch": {
+        "operationId": "CommiUserUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiUserUpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserManagerServiceCommiUserUpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/api_keys": {
+      "get": {
+        "operationId": "CommiUserAPIKeyList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiUserAPIKeyListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "创建时间倒序排",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      },
+      "post": {
+        "operationId": "CommiUserAPIKeyAction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiUserAPIKeyActionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserManagerServiceCommiUserAPIKeyActionBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/credits/usages": {
+      "get": {
+        "operationId": "CommiUserCreditUsageList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiUserCreditUsageListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SOURCE_UNKNOWN",
+              "WEBUI",
+              "API"
+            ],
+            "default": "SOURCE_UNKNOWN"
+          },
+          {
+            "name": "range.start",
+            "description": "start time.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "range.end",
+            "description": "end time. default is now.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/commi/v1/users/{user_id}/logout": {
+      "post": {
+        "summary": "Logouts",
+        "operationId": "CommiLogout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceCommiLogoutResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "用户id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserManagerServiceCommiLogoutBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/verify-token": {
+      "post": {
+        "operationId": "MovideoUserVerifyToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserVerifyTokenResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserVerifyTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}": {
+      "get": {
+        "operationId": "MovideoUserGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      },
+      "delete": {
+        "operationId": "MovideoUserDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserDeleteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      },
+      "patch": {
+        "operationId": "MovideoUserUpgrade",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserUpgradeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "not implemented yet.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/balance": {
+      "get": {
+        "operationId": "MovideoUserGetUsage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserGetUsageResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/logout": {
+      "post": {
+        "operationId": "MovideoUserLogout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserLogoutResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserManagerServiceMovideoUserLogoutBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/subscribes": {
+      "get": {
+        "operationId": "MovideoUserListSubscriptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserListSubscriptionsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      },
+      "post": {
+        "operationId": "MovideoUserNewSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserNewSubscriptionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "user id.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserManagerServiceMovideoUserNewSubscriptionBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    },
+    "/movideo/v1/users/{user_id}/subscribes/{subscription_id}": {
+      "get": {
+        "operationId": "MovideoUserGetSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_manager_serviceMovideoUserGetSubscriptionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagerService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CommiLoginAndRegisterRequestLOGINTYPE": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "PASSWORD",
+        "REGISTER",
+        "FORGET_PASSWORD"
+      ],
+      "default": "UNKNOWN",
+      "description": "- PASSWORD: 密码登录\n - REGISTER: 自注册\n - FORGET_PASSWORD: 自注册用户忘记密码",
+      "title": "logintype"
+    },
+    "UserManagerServiceCommiLogoutBody": {
+      "type": "object"
+    },
+    "UserManagerServiceCommiUserAPIKeyActionBody": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/commonAPIKEYACTION"
+        },
+        "name": {
+          "type": "string",
+          "title": "create的时候填api key的名称"
+        },
+        "id": {
+          "type": "string",
+          "title": "delete和get的时候必填api keyid"
+        }
+      }
+    },
+    "UserManagerServiceCommiUserUpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "用户名\noptional"
+        },
+        "password": {
+          "type": "string",
+          "title": "前端明文密码\noptional"
+        },
+        "phone": {
+          "type": "string",
+          "title": "电话\noptional"
+        },
+        "location": {
+          "type": "string",
+          "title": "地址\noptional"
+        },
+        "langeuage": {
+          "type": "string",
+          "title": "语言\noptional"
+        },
+        "information": {
+          "type": "string",
+          "title": "基本信息\noptional"
+        }
+      }
+    },
+    "UserManagerServiceMovideoUserLogoutBody": {
+      "type": "object"
+    },
+    "UserManagerServiceMovideoUserNewSubscriptionBody": {
+      "type": "object",
+      "properties": {
+        "rc_customer_id": {
+          "type": "string",
+          "title": "revenuecat customer id, example: $RCAnonymousID:qwer123scv"
+        },
+        "purchase_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the latestPurchaseDate that revenuecat return."
+        },
+        "event": {
+          "$ref": "#/definitions/commonSUBSCRIPTION_EVENT",
+          "description": "user event type."
+        },
+        "plan": {
+          "$ref": "#/definitions/commonUSERTYPE",
+          "description": "user selected plan."
+        }
+      }
+    },
+    "commiAPIKeyInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "key 唯一标识"
+        },
+        "sensitive_id": {
+          "type": "string",
+          "title": "create 完整\nlist 模糊: sk-前5位********"
+        },
+        "name": {
+          "type": "string",
+          "title": "key名字"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "创建时间"
+        },
+        "last_used_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "上一次使用时间"
+        }
+      }
+    },
+    "commiCreditInfo": {
+      "type": "object",
+      "properties": {
+        "credit": {
+          "type": "number",
+          "format": "float",
+          "title": "剩下的credit"
+        }
+      }
+    },
+    "commiCreditUsage": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "total_credits": {
+          "type": "number",
+          "format": "float"
+        },
+        "fail_credits": {
+          "type": "number",
+          "format": "float"
+        },
+        "source": {
+          "$ref": "#/definitions/commonTASKSOURCE"
+        }
+      }
+    },
+    "commonAPIKEYACTION": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "CREATE",
+        "DELETE",
+        "GET"
+      ],
+      "default": "UNDEFINED"
+    },
+    "commonAUTHTYPE": {
+      "type": "string",
+      "enum": [
+        "INVALID",
+        "TOKEN",
+        "API_KEY"
+      ],
+      "default": "INVALID"
+    },
+    "commonPRODUCT": {
+      "type": "string",
+      "enum": [
+        "PRODUCT_UNKNOWN",
+        "COMMI",
+        "MOVIDEO"
+      ],
+      "default": "PRODUCT_UNKNOWN"
+    },
+    "commonResult": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Generic service and system error codes, see the system standard error table for HTTP errors and semantics.\nIf the error is business-specific, the code should return 0, see status and error for details."
+        },
+        "error": {
+          "type": "string",
+          "description": "Detailed description of the error."
+        },
+        "status": {
+          "$ref": "#/definitions/commonSTATUSCODE",
+          "description": "Business error code.."
+        }
+      },
+      "description": "Generic result return. Typically returns the error status of each subrequest in a Batch class request."
+    },
+    "commonSTATUSCODE": {
+      "type": "string",
+      "enum": [
+        "SC_OK",
+        "SC_CANCELLED",
+        "SC_UNKNOWN",
+        "SC_INVALID_ARGUMENT",
+        "SC_DEADLINE_EXCEEDED",
+        "SC_NOT_FOUND",
+        "SC_ALREADY_EXISTS",
+        "SC_PERMISSION_DENIED",
+        "SC_UNAUTHENTICATED",
+        "SC_RESOURCE_EXHAUSTED",
+        "SC_FAILED_PRECONDITION",
+        "SC_ABORTED",
+        "SC_OUT_OF_RANGE",
+        "SC_UNIMPLEMENTED",
+        "SC_INTERNAL",
+        "SC_UNAVAILABLE",
+        "SC_DATA_LOSS"
+      ],
+      "default": "SC_OK"
+    },
+    "commonSUBSCRIPTION_EVENT": {
+      "type": "string",
+      "enum": [
+        "NO_EVENT",
+        "PURCHASE_PRODUCT",
+        "CHANGE_PRODUCT"
+      ],
+      "default": "NO_EVENT"
+    },
+    "commonSUBSCRIPTION_STATUS": {
+      "type": "string",
+      "enum": [
+        "NO_SUBSCRIPTION",
+        "SUBSCRIBED",
+        "SUBSCRIPTION_FAILED",
+        "SUBSCRIPTION_EXPIRED"
+      ],
+      "default": "NO_SUBSCRIPTION"
+    },
+    "commonTASKSOURCE": {
+      "type": "string",
+      "enum": [
+        "SOURCE_UNKNOWN",
+        "WEBUI",
+        "API"
+      ],
+      "default": "SOURCE_UNKNOWN"
+    },
+    "commonTASKSTATUS": {
+      "type": "string",
+      "enum": [
+        "TASK_UNKNOWN",
+        "PENDING",
+        "PROCESSING",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "TASK_UNKNOWN"
+    },
+    "commonTimeRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "start time."
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "end time. default is now."
+        }
+      }
+    },
+    "commonUSERSOURCE": {
+      "type": "string",
+      "enum": [
+        "UNSUPPORT",
+        "REGISTER",
+        "WATI",
+        "GOOGLE",
+        "APPLE"
+      ],
+      "default": "UNSUPPORT"
+    },
+    "commonUSERTYPE": {
+      "type": "string",
+      "enum": [
+        "NOTYPE",
+        "FREE",
+        "CREATOR",
+        "PRO"
+      ],
+      "default": "NOTYPE"
+    },
+    "movideoSubscriptionInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/commonSUBSCRIPTION_STATUS"
+        },
+        "error_info": {
+          "type": "string"
+        },
+        "start_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "experation_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protocolcommiUserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "title": "用户名称"
+        },
+        "email": {
+          "type": "string",
+          "title": "用户email"
+        },
+        "phone": {
+          "type": "string",
+          "title": "用户电话"
+        },
+        "location": {
+          "type": "string",
+          "title": "用户地址"
+        },
+        "language": {
+          "type": "string",
+          "title": "用户使用语言"
+        },
+        "source": {
+          "$ref": "#/definitions/commonUSERSOURCE",
+          "title": "用户来源"
+        },
+        "type": {
+          "$ref": "#/definitions/commonUSERTYPE",
+          "title": "用户类型"
+        },
+        "information": {
+          "type": "string",
+          "title": "用户基本信息。前端传入json(industry company, perfer content, etc). 后端不验证直接存。"
+        },
+        "credits": {
+          "$ref": "#/definitions/commiCreditInfo",
+          "description": "用户使用情况以及限制."
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "创建时间"
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "更新时间"
+        }
+      }
+    },
+    "protocolmovideoUserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "title": "用户email"
+        },
+        "type": {
+          "$ref": "#/definitions/commonUSERTYPE",
+          "title": "用户类型"
+        },
+        "subscribe_info": {
+          "$ref": "#/definitions/movideoSubscriptionInfo",
+          "title": "用户订阅信息\n这个接口返回的时候，不带subscription id"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "创建时间"
+        },
+        "update_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "更新时间"
+        }
+      }
+    },
+    "user_manager_serviceCommiBatchUsersAddCreditsRequest": {
+      "type": "object",
+      "properties": {
+        "user_emails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "credits": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "expire_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "user_manager_serviceCommiBatchUsersAddCreditsResponse": {
+      "type": "object",
+      "properties": {
+        "rets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commonResult"
+          }
+        }
+      }
+    },
+    "user_manager_serviceCommiLoginAndRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/commonUSERSOURCE",
+          "title": "用户来源"
+        },
+        "login_type": {
+          "$ref": "#/definitions/CommiLoginAndRegisterRequestLOGINTYPE"
+        },
+        "email": {
+          "type": "string",
+          "title": "邮箱"
+        },
+        "password": {
+          "type": "string",
+          "description": "密码, 前端明文，后端md5(salt + passwd)\n如果是type FORGET_PASSWORD 则是新的密码."
+        },
+        "extra_info": {
+          "type": "string",
+          "title": "[optional] 一些额外信息，比如wati的tentetid"
+        }
+      }
+    },
+    "user_manager_serviceCommiLoginAndRegisterResponse": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "title": "用户id"
+        },
+        "auth": {
+          "type": "string",
+          "title": "auth信息"
+        },
+        "redirect_url": {
+          "type": "string",
+          "title": "[optional] 登录成功的跳转链接\n如果是第一次用wati登录和忘记密码，那么redirect url会返回更改密码的页面，如果是已经注册过就会返回mainpage页面\n如果是自注册，那么redirect url会返回重新登录页面"
+        }
+      }
+    },
+    "user_manager_serviceCommiLogoutResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceCommiResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "user_manager_serviceCommiResetPasswordResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceCommiUserAPIKeyActionResponse": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "$ref": "#/definitions/commiAPIKeyInfo",
+          "title": "action为delete 的时候返回nil"
+        }
+      }
+    },
+    "user_manager_serviceCommiUserAPIKeyListResponse": {
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiAPIKeyInfo"
+          }
+        }
+      }
+    },
+    "user_manager_serviceCommiUserActiveRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "user_manager_serviceCommiUserActiveResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceCommiUserCreditUsageListResponse": {
+      "type": "object",
+      "properties": {
+        "usages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commiCreditUsage"
+          }
+        }
+      }
+    },
+    "user_manager_serviceCommiUserGetResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/protocolcommiUserInfo",
+          "title": "用户信息"
+        }
+      }
+    },
+    "user_manager_serviceCommiUserTaskCreditCostResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceCommiUserUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/protocolcommiUserInfo"
+        }
+      }
+    },
+    "user_manager_serviceMovideoSubscriptionEventResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceMovideoUserBalanceCostResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceMovideoUserDeleteResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceMovideoUserGetResponse": {
+      "type": "object",
+      "properties": {
+        "user_info": {
+          "$ref": "#/definitions/protocolmovideoUserInfo"
+        }
+      }
+    },
+    "user_manager_serviceMovideoUserGetSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "subscription": {
+          "$ref": "#/definitions/movideoSubscriptionInfo"
+        }
+      }
+    },
+    "user_manager_serviceMovideoUserGetUsageResponse": {
+      "type": "object",
+      "properties": {
+        "usage": {
+          "type": "string",
+          "format": "int64",
+          "description": "current usage this month, unit seconds."
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "description": "total usage this month, unit seconds."
+        }
+      }
+    },
+    "user_manager_serviceMovideoUserListSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "subscriptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/movideoSubscriptionInfo"
+          }
+        }
+      }
+    },
+    "user_manager_serviceMovideoUserLogoutResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceMovideoUserNewSubscriptionResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceMovideoUserUpgradeResponse": {
+      "type": "object"
+    },
+    "user_manager_serviceMovideoUserVerifyTokenRequest": {
+      "type": "object",
+      "properties": {
+        "id_token": {
+          "type": "string"
+        }
+      }
+    },
+    "user_manager_serviceMovideoUserVerifyTokenResponse": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "is_new_user": {
+          "type": "boolean"
+        }
+      }
+    },
+    "user_manager_serviceUserAuthResponse": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "title": "用户id"
+        },
+        "type": {
+          "$ref": "#/definitions/commonUSERTYPE",
+          "title": "用户类型"
+        },
+        "product": {
+          "$ref": "#/definitions/commonPRODUCT"
+        }
+      }
+    }
+  }
+}

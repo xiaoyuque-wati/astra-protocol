@@ -1,0 +1,21 @@
+---
+Language: Proto
+BasedOnStyle: Google
+
+ColumnLimit: 80
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+SpacesInContainerLiterals: true
+SpaceBeforeAssignmentOperators: true
+SpaceAfterCStyleCast: false
+
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+BreakBeforeBraces: Attach
+
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignTrailingComments: true
+...

@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+import "commi.proto";
+import "movideo.proto";
+import "task.proto";
+
+option go_package = "github.com/ClareAI/ai-platform-protocol/api/metrics-server";
+package wati.ai_platform.protocol.metrics_server;
+
+// clang-format off
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "Metrics Service";
+        version: "1.0.0";
+        description: ""
+    };
+};
+
+service MetricsServer {
+    rpc PushMetric(PushMetricRequest) returns (PushMetricResponse);
+}
+
+// clang-format on
+enum ACTION {
+    UNKNOWN = 0;
+    ADD     = 1;
+    UPLOAD  = 2;
+}
+
+message CommiUserNewInfo {
+    string                    email         = 1;
+    google.protobuf.Timestamp register_time = 2;
+}
+
+message CommiUserActiveInfo {
+    string                    email            = 1;
+    string                    id               = 2;
+    string                    name             = 3;
+    string                    phone            = 4;
+    string                    country          = 5;
+    string                    information      = 6;
+    float                     initial_credit   = 7;
+    common.USERSOURCE         source           = 8;
+    google.protobuf.Timestamp first_login_time = 9;
+}
+
+message CommiVideoGenerationInfo {
+    string                    video_id          = 1;
+    string                    video_name        = 2;
+    string                    user_id           = 3;
+    google.protobuf.Timestamp start_time        = 4;
+    google.protobuf.Timestamp end_time          = 5;
+    int32                     interval          = 6;
+    common.TASKSTATUS         result            = 7;
+    string                    template_id       = 8;
+    string                    template_name     = 9;
+    commi.CATEGORY            category          = 10;
+    string                    speaker_id        = 11;
+    string                    speaker_name      = 12;
+    commi.LANGUAGE            language          = 13;
+    int32                     script_word_count = 14;
+    string                    template_script   = 15;
+    string                    script            = 16;
+    map<string, string>       script_variables  = 17;
+    int32                     video_duration    = 18;
+    common.TASKSOURCE         source            = 19;
+    float                     credit_cost       = 20;
+}
+
+message CommiAPIKeyActionInfo {
+    string                    user_id      = 1;
+    string                    api_key_id   = 2;
+    string                    api_key_name = 3;
+    common.APIKEYACTION       action       = 4;
+    google.protobuf.Timestamp time         = 5;
+}
+
+message CommiAPIUsageInfo {
+    string                    user_id         = 1;
+    string                    api_key_id      = 2;
+    string                    endpoint        = 3;
+    string                    method          = 4;
+    int32                     status_code     = 5;
+    string                    status_message  = 6;
+    google.protobuf.Timestamp invocation_time = 7;
+}
+
+message CommiVideoShareInfo {
+    string                    user_id             = 1;
+    string                    video_id            = 2;
+    string                    video_url           = 3;
+    string                    wati_template_name  = 4;
+    string                    wati_broadcast_name = 5;
+    string                    whatsapp_number     = 6;
+    int32                     send_status_code    = 7;
+    string                    send_status_message = 8;
+    google.protobuf.Timestamp send_time           = 9;
+}
+
+message CommiCreditEventInfo {
+    string                    user_id       = 1;
+    common.USERCREDITEVENT    action        = 2;
+    task.ITEMTYPE             item_type     = 3;
+    string                    item_id       = 4;
+    float                     change_amount = 5;
+    float                     remain        = 6;
+    google.protobuf.Timestamp event_time    = 7;
+}
+
+message MovideoUserNewInfo {
+    string                    user_id       = 1;
+    string                    firebase_id   = 2;
+    string                    email         = 3;
+    google.protobuf.Timestamp register_time = 4;
+}
+
+message MovideoVideoGenerationInfo {
+    string                    user_id      = 1;
+    string                    video_id     = 2;
+    movideo.CATEGORY          category     = 3;
+    movideo.ORIENTATION       orientation  = 4;
+    string                    user_prompt  = 5;
+    string                    voice_name   = 6;
+    bool                      has_subtitle = 7;
+    int32                     duration     = 8;
+    common.TASKSTATUS         status       = 9;
+    string                    error_info   = 10;
+    google.protobuf.Timestamp start_time   = 11;
+    google.protobuf.Timestamp end_time     = 12;
+}
+
+message MovideoVideoExportInfo {
+    string                    user_id       = 1;
+    string                    video_id      = 2;
+    common.QUALITY            quality       = 3;
+    common.TASKSTATUS         status        = 4;
+    string                    error_info    = 5;
+    string                    target_object = 6;
+    google.protobuf.Timestamp start_time    = 7;
+    google.protobuf.Timestamp end_time      = 8;
+}
+
+// passthrough feedback info from frontend to metrics server, only add
+// feedback_time.
+message MovideoFeedbackInfo {
+    string                    user_email    = 1;
+    string                    video_id      = 2;
+    string                    comment       = 3;
+    string                    feedback_type = 4;
+    common.USERFAVOURITE      is_favourite  = 5;
+    google.protobuf.Timestamp feedback_time = 6;
+}
+
+message MovideoSubscriptionInfo {
+    string                    user_id         = 1;
+    string                    subscription_id = 2;
+    common.USERTYPE           plan            = 3;
+    int32                     credit_before   = 4;
+    int32                     credit_after    = 5;
+    bool                      is_renew        = 6;
+    google.protobuf.Timestamp start_time      = 7;
+    google.protobuf.Timestamp end_time        = 8;
+}
+
+message MovideoCreditUsage {
+    string                    user_id         = 1;
+    string                    video_id        = 2;
+    string                    subscription_id = 3;
+    int32                     credit_before   = 4;
+    int32                     cost            = 5;
+    google.protobuf.Timestamp cost_time       = 6;
+}
+
+message MovideoSubscriptionCancel {
+    string                    user_id     = 1;
+    common.USERTYPE           plan        = 2;
+    string                    reason      = 3;
+    google.protobuf.Timestamp cancel_time = 4;
+}
+
+message PushMetricRequest {
+    //
+    string id = 1;
+
+    ACTION action = 2;
+    //
+    bool is_finished = 3;
+
+    common.METRICTABLE table = 4;
+
+    oneof table_data {
+        CommiUserNewInfo           commi_user_new              = 5;
+        CommiUserActiveInfo        commi_user_active           = 6;
+        CommiVideoGenerationInfo   commi_video_generate        = 7;
+        CommiAPIKeyActionInfo      commi_api_action            = 8;
+        CommiAPIUsageInfo          commi_api_usage             = 9;
+        CommiVideoShareInfo        commi_video_share           = 10;
+        CommiCreditEventInfo       commi_credit_event          = 11;
+        MovideoUserNewInfo         movideo_user_new            = 12;
+        MovideoVideoGenerationInfo movideo_video_generate      = 13;
+        MovideoVideoExportInfo     movideo_video_export        = 14;
+        MovideoFeedbackInfo        movideo_feedback            = 15;
+        MovideoSubscriptionInfo    movideo_subscription        = 16;
+        MovideoCreditUsage         movideo_credit_usage        = 17;
+        MovideoSubscriptionCancel  movideo_subscription_cancel = 18;
+    }
+}
+
+message PushMetricResponse {
+}
+
+message HealthCheckRequest {
+}
+
+message HealthCheckResponse {
+}

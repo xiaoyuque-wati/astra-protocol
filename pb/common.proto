@@ -1,0 +1,203 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option  go_package = "github.com/ClareAI/ai-platform-protocol/api/common";
+package wati.ai_platform.protocol.common;
+
+enum USERFAVOURITE {
+    FAVOURITE_UNKNOWN = 0;
+    UNFAVOURITE       = 1;
+    FAVOURITE         = 2;
+}
+
+enum USERTYPE {
+    NOTYPE  = 0;
+    FREE    = 1;
+    CREATOR = 2;
+    PRO     = 3;
+}
+
+enum GENDER {
+    UNKNOWN = 0;
+    MALE    = 1;
+    FEMALE  = 2;
+}
+
+enum TONE {
+    ALL_TONE  = 0;
+    CONFIDENT = 1;
+    FRIENDLY  = 2;
+}
+
+enum AUTHTYPE {
+    INVALID = 0;
+    TOKEN   = 1;
+    API_KEY = 2;
+}
+
+enum USERSOURCE {
+    UNSUPPORT = 0;
+    REGISTER  = 1;
+    WATI      = 2;
+    GOOGLE    = 3;
+    APPLE     = 4;
+}
+
+enum APIKEYACTION {
+    UNDEFINED = 0;
+    CREATE    = 1;
+    DELETE    = 2;
+    GET       = 3;
+}
+
+enum USERCREDITEVENT {
+    NO_ACTION = 0;
+    ADD       = 1;
+    MINUS     = 2;
+}
+
+enum SUBSCRIPTION_STATUS {
+    NO_SUBSCRIPTION      = 0;
+    SUBSCRIBED           = 10;
+    SUBSCRIPTION_FAILED  = 20;
+    SUBSCRIPTION_EXPIRED = 30;
+}
+
+enum SUBSCRIPTION_EVENT {
+    NO_EVENT         = 0;
+    PURCHASE_PRODUCT = 1;
+    CHANGE_PRODUCT   = 2;
+}
+
+enum STATUSCODE {
+    SC_OK = 0;
+
+    SC_CANCELLED           = 1;
+    SC_UNKNOWN             = 2;
+    SC_INVALID_ARGUMENT    = 3;
+    SC_DEADLINE_EXCEEDED   = 4;
+    SC_NOT_FOUND           = 5;
+    SC_ALREADY_EXISTS      = 6;
+    SC_PERMISSION_DENIED   = 7;
+    SC_UNAUTHENTICATED     = 16;
+    SC_RESOURCE_EXHAUSTED  = 8;
+    SC_FAILED_PRECONDITION = 9;
+    SC_ABORTED             = 10;
+    SC_OUT_OF_RANGE        = 11;
+    SC_UNIMPLEMENTED       = 12;
+    SC_INTERNAL            = 13;
+    SC_UNAVAILABLE         = 14;
+    SC_DATA_LOSS           = 15;
+}
+
+enum QUALITY {
+    UNSPECIFIED = 0;
+    PIXEL_480P  = 1;
+    PIXEL_720P  = 2;
+    PIXEL_1080P = 3;
+}
+
+enum TASKSTATUS {
+    TASK_UNKNOWN = 0;
+    PENDING      = 1;
+    PROCESSING   = 2;
+    SUCCESS      = 3;
+    FAILURE      = 4;
+}
+
+enum WATERMARK {
+    UNKNOWN_WM = 0;
+    NO_WM      = 1;
+    WM_CUSTOM  = 2;
+    WM_MOVIDEO = 3;
+}
+
+// Generic result return. Typically returns the error status of each subrequest
+// in a Batch class request.
+message Result {
+    // Generic service and system error codes, see the system standard error
+    // table for HTTP errors and semantics. If the error is business-specific,
+    // the code should return 0, see status and error for details.
+    int32 code = 1;
+    // Detailed description of the error.
+    string error = 2;
+    // Business error code..
+    STATUSCODE status = 3;
+}
+
+message ResponsePaging {
+    int64 offset = 1;
+    int64 limit  = 2;
+    int64 total  = 3;
+}
+
+message RequestPaging {
+    int64 offset = 1;
+    int64 limit  = 2;
+}
+
+enum TASKSOURCE {
+    SOURCE_UNKNOWN = 0;
+    WEBUI          = 1;
+    API            = 2;
+}
+
+message NameQuery {
+    enum MATCHMODE {
+        // Fuzzy search.
+        FUZZY = 0;
+        // Exact search.
+        EXACT = 1;
+    }
+    // Search value.
+    string value = 1;
+    // Search mode, default is fuzzy.
+    MATCHMODE match_mode = 2;
+}
+
+message TimeRange {
+    // start time.
+    google.protobuf.Timestamp start = 1;
+    // end time. default is now.
+    google.protobuf.Timestamp end = 2;
+}
+
+message WatiReceiver {
+    message CustomParam {
+        // variable name.
+        string name = 1;
+        // variable value.
+        string value = 2;
+    }
+    // whatsapp number.
+    string whatsapp_number = 1;
+    // video id for sharing. valid for 1 month.
+    string shared_item_id = 2;
+    // other WATI custom param. Will pass through to the WATI server.
+    repeated CustomParam other_custom_params = 3;
+}
+
+enum METRICTABLE {
+    METRIC_UNDEFINED         = 0;
+    COMMI_USER_NEW           = 1;
+    COMMI_USER_ACTIVE        = 2;
+    COMMI_VIDEO_GENERATION   = 3;
+    COMMI_API_KEY_ACTION     = 4;
+    COMMI_API_USAGE          = 5;
+    COMMI_VIDEO_SHARE        = 6;
+    COMMI_CREDIT_EVENT       = 7;
+    MOVIDEO_USER_NEW         = 8;
+    MOVIDEO_VIDEO_GENERATION = 9;
+    MOVIDEO_VIDEO_EXPORT     = 10;
+    MOVIDEO_FEEDBACK         = 11;
+    MOVIDEO_SUBSCRIPTION     = 12;
+    MOVIDEO_CREDIT_EVENT     = 13;
+    MOVIDEO_SUB_CANCELLATION = 14;
+}
+
+enum PRODUCT {
+    PRODUCT_UNKNOWN = 0;
+    COMMI           = 1;
+    MOVIDEO         = 2;
+}
