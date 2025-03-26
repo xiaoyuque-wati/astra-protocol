@@ -1,44 +1,11 @@
-syntax = "proto3";
+   syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-import "commi.proto";
-import "movideo.proto";
+   package example;
 
-option  go_package = "github.com/ClareAI/ai-platform-protocol/api/task";
-package wati.ai_platform.protocol.task;
+   message HelloRequest {
+       string name = 1;
+   }
 
-enum ITEMTYPE {
-    UNSUPPORT_ITEM         = 0;
-    COMMI_VIDEO_GENERATE   = 1;
-    MOVIDEO_VIDEO_GENERATE = 2;
-    MOVIDEO_VIDEO_EXPORT   = 3;
-    IMAGE_GENERATOR        = 4;
-}
-
-message ItemTaskRequest {
-    // Video generation Task uuid.
-    string id = 1;
-    // Task create time.
-    google.protobuf.Timestamp create_time = 2;
-    // Task type
-    ITEMTYPE item_type = 3;
-    // Task request detail
-    oneof item {
-        commi.VideoGenerateRequest   commi_video_generate   = 4;
-        movideo.VideoGenerateRequest movideo_video_generate = 5;
-        movideo.VideoExportRequest   movideo_video_export   = 6;
-    }
-}
-
-message ItemTaskResponse {
-    // Task uuid.
-    string id = 1;
-    // Task type
-    ITEMTYPE item_type = 2;
-    // Task result detail
-    oneof result {
-        commi.VideoGenerateResult   commi_video_generate   = 3;
-        movideo.VideoGenerateResult movideo_video_generate = 4;
-        movideo.VideoExportResult   movideo_video_export   = 5;
-    }
-}
+   message HelloResponse {
+       string message = 1;
+   }

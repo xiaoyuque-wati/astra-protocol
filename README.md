@@ -1,8 +1,8 @@
-# AI Platform Protocol
+# Astra Protocol
 
 ## Introduction
 
-WATI-AIGC-PLATFORM is the API documentation for the AIGC products within WATI.
+Astra is the API documentation for the AIGC products within Astra.
 
 ## Architecture
 ![architecture](./doc/architecture.png)
